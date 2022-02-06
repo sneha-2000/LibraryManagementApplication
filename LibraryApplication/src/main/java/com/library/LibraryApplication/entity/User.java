@@ -8,8 +8,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
 
-    @Column(name="username")
+    @Column(name="username",nullable = false,unique = true)
     private String userName;
+    @Column(nullable = false)
     private String password;
     private String role = "ROLE_USER";
 

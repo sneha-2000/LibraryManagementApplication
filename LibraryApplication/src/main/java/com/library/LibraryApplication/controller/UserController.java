@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 @Controller
-public class LibraryController {
-    static String email;
+public class UserController {
+    static String userName;
     @Autowired
     UserService userService;
 
@@ -49,8 +49,8 @@ public class LibraryController {
 
     @PostMapping("/home")
     public String validateUser(HttpServletRequest request, Model model) {
-        User user = userService.findUserByEmail(request.getParameter("email"));
-        email = request.getParameter("email");
+        User user = userService.findUserByUserName(request.getParameter("userName"));
+        userName = request.getParameter("userName");
         if (!(Objects.isNull(user))) {
 
             if ((user.getPassword()).equals(request.getParameter("password"))) {
@@ -68,5 +68,8 @@ public class LibraryController {
     public String home() {
         return "home";
     }
+
+
+
 
 }

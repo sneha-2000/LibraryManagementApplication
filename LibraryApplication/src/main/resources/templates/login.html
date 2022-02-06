@@ -1,198 +1,112 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" href="style.css">
+    <title> Login </title>
     <style>
-    /* * {box-sizing: border-box} */
+        header .header{
+  background-color: #fff;
+  height: 45px;
+}
 
-
-    *,
-    *:before,
-    *:after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Nunito", sans-serif;
-    }
-
-    body {
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: -webkit-linear-gradient(left, #7579ff, #b224ef);
-      font-family: "Nunito", sans-serif;
-    }
-
-    input,
-    button {
-      border: none;
-      outline: none;
-      background: none;
-
-    }
-
-    .mt-3 {
-
-      overflow: hidden;
-      position: relative;
-      width: 900px;
-      height: 550px;
-      background: #fff;
-      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-
-    }
-
-    /* Add padding to containers */
-    .container {
-      /* padding: 16px; */
-      position: relative;
-      width: 640px;
-      height: 100%;
-      padding: 50px 30px;
-      -webkit-transition: -webkit-transform 1.2s ease-in-out;
-      transition: -webkit-transform 1.2s ease-in-out;
-      transition: transform 1.2s ease-in-out;
-      transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
-
-    }
-
-    /* Full-width input fields */
-    input[type=text],
-    input[type=password] {
-      /* width: 100%;
+h1,h2{
+color:white;
+}
+header a img{
+  width: 134px;
+margin-top: 4px;
+}
+.login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.login-page .form .login{
+  margin-top: -31px;
+margin-bottom: 26px;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
   padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1; */
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background-color: #328f8a;
+  background-image: linear-gradient(45deg,#328f8a,#08ac4b);
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
 
-      display: block;
-      width: 100%;
-      margin-top: 5px;
-      font-size: 16px;
-      padding-bottom: 5px;
-      border-bottom: 1px solid rgba(109, 93, 93, 0.4);
-      text-align: center;
-      font-family: "Nunito", sans-serif;
-    }
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
 
-    label {
-      display: block;
-      width: 260px;
-      margin: 25px auto 0;
-      text-align: center;
-    }
-
-    label span {
-      font-size: 14px;
-      font-weight: 600;
-      color: #505f75;
-      text-transform: uppercase;
-    }
-
-    input[type=text]:focus,
-    input[type=password]:focus {
-      background-color: #ddd;
-      outline: none;
-    }
-
-    /* Overwrite default styles of hr */
-    h2 {
-      width: 100%;
-      font-size: 30px;
-      text-align: center;
-    }
-
-    button {
-      display: block;
-      margin: 0 auto;
-      width: 260px;
-      height: 36px;
-      border-radius: 30px;
-      color: #fff;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    /* Set a style for the submit/register button */
-    .registerbtn {
-      /* background-color: #04AA6D;
-      color: white;
-      padding: 16px 20px;
-      margin: 8px 0;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      opacity: 0.9; */
-      margin-top: 40px;
-      margin-bottom: 30px;
-      text-transform: uppercase;
-      font-weight: 600;
-      font-family: "Nunito", sans-serif;
-      background: -webkit-linear-gradient(left, #7579ff, #b224ef);
-    }
-
-    .registerbtn:hover {
-      background: -webkit-linear-gradient(left, #b224ef, #7579ff);
-    }
-
-    .forgot-pass {
-      margin-top: 15px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 600;
-      color: #0c0101;
-      cursor: pointer;
-    }
-
-    /* Add a blue text color to links */
-    a {
-      color: dodgerblue;
-    }
-
-    /* Set a grey background color and center the text of the "sign in" section */
-    .signIn {
-      background-color: #f1f1f1;
-      text-align: center;
-    }
-  </style>
+body {
+  background-color: #328f8a;
+  background-image: linear-gradient(45deg,#DAF7A6,#08ac4b);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+    </style>
 </head>
-
 <body>
-<div class="mt-3">
-    <span class="text-center text-danger">
-      <div th:text="${message}"/>
-    </span>
+<h1 style="text-align:center">Get started with our library services!!</h1>
+<h2 style="text-align:center">Please login to explore our services!</h2>
+<div class="login-page">
 
-    <form action="/home" method="post">
-        <!--        <div class="imgcontainer">-->
-        <!--            <img src="login.png" alt="login" class="login">-->
-        <!--        </div>-->
-        <div class="container">
-            <h2>
-                <center>Login</center>
-            </h2>
-
-
-<!--            <label for="text"></label>-->
-<!--            <input type="text" placeholder="Enter Name" name="name" id="text" required>-->
-            <label for="email"></label>
-            <input type="text" placeholder="Enter Email" name="email" id="email" required>
-            <label for="psw"></label>
-            <input type="password" placeholder="Enter Password" name="password" id="psw" required>
-            <button type="submit" class="registerbtn">Login</button>
-            <!--            <p class="forgot-pass">Forgot Password ?</p>-->
+    <div class="form">
+        <div class="login">
+            <div class="login-header">
+                <h3>LOGIN</h3>
+                <p>Please enter your credentials to login.</p>
+            </div>
+            <div th:text="${message}" style="color:red"/>
         </div>
-        <div class="container signIn">
-            <p>You don't have account ? <a href="register">Sign Up</a>.</p>
-        </div>
-    </form>
+        <form class="login-form" action="/home" method="post">
+            <input type="text" placeholder="username" name="userName"/>
+            <input type="password" placeholder="password" name="password"/>
+            <button>login</button>
+            <p class="message">Not registered? <a href="register">Create an account</a></p>
+        </form>
+    </div>
 </div>
 </body>
-
 </html>
