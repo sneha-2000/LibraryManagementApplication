@@ -1,6 +1,7 @@
 package com.library.LibraryApplication.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="BOOKS")
@@ -13,6 +14,8 @@ public class Book {
     private String author;
     private int releaseYear;
     private int edition;
+    @OneToMany(mappedBy = "book")
+    private List<BookIssue> bookIssue;
 
     public Book() {
     }
@@ -65,4 +68,11 @@ public class Book {
         this.edition = edition;
     }
 
+    public List<BookIssue> getBookIssue() {
+        return bookIssue;
+    }
+
+    public void setBookIssue(List<BookIssue> bookIssue) {
+        this.bookIssue = bookIssue;
+    }
 }
