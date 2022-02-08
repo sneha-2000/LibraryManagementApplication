@@ -1,6 +1,8 @@
 package com.library.LibraryApplication.controller;
 
+import com.library.LibraryApplication.entity.Admin;
 import com.library.LibraryApplication.entity.User;
+import com.library.LibraryApplication.service.AdminService;
 import com.library.LibraryApplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,10 @@ import java.util.Objects;
 @Controller
 public class UserController {
     static String userName;
+
+    @Autowired
+    AdminService adminService;
+
     @Autowired
     UserService userService;
 
@@ -42,7 +48,7 @@ public class UserController {
         String phoneNumber = request.getParameter("phoneNumber");
         String city = request.getParameter("city");
 
-        User user = new User(userName,password,email,firstName,lastName,address,phoneNumber,city);
+        User user = new User(userName, password, email, firstName, lastName, address, phoneNumber, city);
         userService.saveUser(user);
         return "login";
     }
@@ -59,17 +65,31 @@ public class UserController {
                 model.addAttribute("message", "Invalid password!!");
                 return "login";
             }
-        } else {
-            model.addAttribute("message", "Invalid credentials!!");
-            return "login";
+        }
+        else {
+            Admin admin = adminService.findAdminByAdminName(userName);
+            if (!(Objects.isNull(admin))) {
+                if (admin.getPassword().equals(request.getParameter("password"))) {
+                    return "adminHome";
+                } else {
+                    model.addAttribute("message", "Invalid password!!");
+                    return "login";
+                }
+            } else {
+                model.addAttribute("message", "Invalid credentials!!");
+                return "login";
+            }
         }
     }
+
     @RequestMapping("/home")
-    public String home() {
+    public String home () {
         return "home";
     }
 
-
-
+    @RequestMapping("/adminHome")
+    public String adminHome() {
+        return "adminHome";
+    }
 
 }

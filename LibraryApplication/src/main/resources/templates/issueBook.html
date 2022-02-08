@@ -68,7 +68,7 @@ li a:hover {
         <tbody>
         <tr th:each="issue:${issues}">
             <td th:text="${issue.id}"></td>
-<!--            <td th:text="${issue.title}"></td>-->
+<!--            <td th:text="${issue.book.title}"></td>-->
             <td th:text="${issue.issueDate}"></td>
             <td th:text="${issue.returnDate}"></td>
             <td th:text="${issue.price}"></td>

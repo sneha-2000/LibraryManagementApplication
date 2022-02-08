@@ -13,6 +13,10 @@ public class BookService {
     @Autowired
     BookRepository bookRepository;
 
+    public Book saveBook(Book book) {
+        return bookRepository.save(book);
+    }
+
     public Book getBookById(Long bookId) {
         return bookRepository.getById(bookId);
     }

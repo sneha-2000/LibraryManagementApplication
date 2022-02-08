@@ -13,12 +13,18 @@ public class User {
     @Column(nullable = false)
     private String password;
     private String role = "ROLE_USER";
-
+    private Boolean active = true;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column
     private String address;
+    @Column
     private String city;
+    @Column
     private String phoneNumber;
 
     public User() {}
@@ -116,4 +122,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }
