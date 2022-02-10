@@ -2,21 +2,21 @@ package com.library.LibraryApplication.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 public class BookIssue {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
     private String issueDate;
     @Column(nullable = false)
     private String returnDate;
     @Column(nullable = false)
-    private double price;
+    private Double price;
 
     @JsonIgnore
     @ManyToOne
@@ -24,11 +24,17 @@ public class BookIssue {
 
     public BookIssue(){}
 
-    public BookIssue(Book book,String issueDate,double price,String returnDate){
+    public BookIssue(Book book,String issueDate,Double price,String returnDate){
         this.book=book;
         this.issueDate=issueDate;
         this.price=price;
         this.returnDate=returnDate;
+    }
+
+    public BookIssue(String issueDate, Double price,String returnDate) {
+        this.issueDate = issueDate;
+        this.price = price;
+        this.returnDate = returnDate;
     }
 
     public Long getId() {
@@ -59,11 +65,11 @@ public class BookIssue {
         return book;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

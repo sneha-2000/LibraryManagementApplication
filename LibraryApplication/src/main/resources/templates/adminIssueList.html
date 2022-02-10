@@ -9,13 +9,13 @@
 
 /* Set a style for the submit/register button */
 .bookbtn {
-  background-color: #73C12E;
+  background-color: #36BA72 ;
   color: white;
-  padding: 12px 20px;
+  padding: 16px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width:80%;
+  width: 80%;
   opacity: 0.9;
 }
 
@@ -38,7 +38,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #73C12E;
+  background-color: #36BA72 ;
 }
 
 li {
@@ -60,38 +60,37 @@ li a:hover {
 </head>
 <body>
 <ul>
-    <li><a href="/home">Home</a></li>
+    <li><a href="/adminHome">Home</a></li>
+    <li><a href="/adminBookList">Book List</a></li>
     <li><a href="/">Logout</a></li>
 
 </ul>
-<div class="container">
-    <h1>Book Details</h1>
-    <table class="table table-striped">
-        <thead class="thead-dark">
-<!--        <th scope="row">Book Id</th>-->
-        <th scope="row">Title</th>
-        <th scope="row">Author</th>
-        <th scope="row">Release Year</th>
-        <th scope="row">Edition</th>
+<form action="/adminIssuesBook">
+    <div class="container">
+        <h1>Book Details</h1>
+        <table class="table table-striped">
+            <thead class="thead-dark">
 
-        </thead>
-        <tbody>
-        <tr th:each="book:${books}">
-<!--            <td th:text="${book.bookId}"></td>-->
-            <td th:text="${book.title}"></td>
-            <td th:text="${book.author}"></td>
-            <td th:text="${book.releaseYear}"></td>
-            <td th:text="${book.edition}"></td>
-            <td> <button type="submit" class="bookbtn">
+            <!--        <th scope="row">Book Id</th>-->
+            <th scope="row">Title</th>
+            <th scope="row">Author</th>
+            <th scope="row">Release Year</th>
+            <th scope="row">Edition</th>
 
-                <a th:href="@{/issueBook/{id}(id=${book.bookId})}" class="mb-3 btn btn-success text-center">Issue the book</a></button></td>
+            </thead>
+            <tbody>
+            <tr th:each="list:${lists}">
+                <!--            <td th:text="${book.bookId}"></td>-->
+                <td th:text="${list.title}"></td>
+                <td th:text="${list.author}"></td>
+                <td th:text="${list.releaseYear}"></td>
+                <td th:text="${list.edition}"></td>
+                <td><button type="submit" class="bookbtn" th:value="${list.bookId}" name="bookId" >Issue</button></td>
 
-        </tr>
+            </tbody>
+        </table>
 
-        </tbody>
-    </table>
-
-</div>
-
+    </div>
+</form>
 </body>
 </html>

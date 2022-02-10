@@ -22,4 +22,9 @@ public class BookIssueService {
         return bookIssueRepository.findIssueBookByBookId(book);
     }
 
+
+    public void saveIssueBook(BookIssue bookIssue) {
+         bookIssueRepository.save(bookIssue);
+    }
+
 }

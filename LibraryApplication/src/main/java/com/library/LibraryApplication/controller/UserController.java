@@ -15,8 +15,8 @@ import java.util.Objects;
 
 @Controller
 public class UserController {
+    public static Long userId;
     static String userName;
-
     @Autowired
     AdminService adminService;
 
