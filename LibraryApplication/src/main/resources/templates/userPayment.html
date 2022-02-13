@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <style>
+
+/* Set a style for the submit/register button */
+.bookbtn {
+  background-color: #348D10;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 60%;
+  opacity: 0.9;
+}
+
+.bookbtn:hover {
+  opacity:1;
+}
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+ .container {
+
+        width:40%;
+        padding: 30px;
+        background-color: white;
+
+    }
+  </style>
+</head>
+<body style="text-align:center" background="ticket.png">
+<ul>
+    <li><a href="/home">Home</a></li>
+    <li><a href="/userBookingDetails">My Bookings</a></li>
+    <li><a href="/login">Logout</a></li>
+
+</ul>
+<div style="text-align:center">
+    <form action="/successfulPayment">
+    <div class="container">
+        <h1>Pay here!!</h1>
+        <label for="name"><b>Name:</b></label>
+        <p><span th:text="${name}" id="name"></span></p><br/>
+
+        <label for="title"><b>Book Title:</b></label>
+        <p><span th:text="${title}" id="title"></span></p><br/>
+
+        <label for="issueDate"><b>Issue Date:</b></label>
+        <p><span th:text="${issueDate}" id="issueDate"></span></p><br/>
+
+        <label for="returnDate"><b>Return Within:</b></label>
+        <p><span th:text="${returnDate}" id="returnDate"></span></p><br/>
+
+        <label for="price"><b>Amount to pay:</b></label>
+        <p><span th:text="${price}" id="price"></span></p><br/>
+
+        <td><button type="submit" class="bookbtn">Pay</button></td>
+
+    </div>
+    </form>
+</div>
+</body>
+</html>

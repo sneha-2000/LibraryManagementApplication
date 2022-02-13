@@ -1,16 +1,16 @@
 package com.library.LibraryApplication.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
-public class BookIssue {
-
+public class AdminUserBooking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
+    private String userName;
+    @Column(nullable = false)
+    private String bookTitle;
     @Column(nullable = false)
     private String issueDate;
     @Column(nullable = false)
@@ -18,17 +18,14 @@ public class BookIssue {
     @Column(nullable = false)
     private Double price;
 
-    @JsonIgnore
-    @ManyToOne
-    private Book book;
+    public AdminUserBooking(){}
 
-    public BookIssue(){}
-
-    public BookIssue(Book book,String issueDate,Double price,String returnDate){
-        this.book=book;
-        this.issueDate=issueDate;
-        this.price=price;
-        this.returnDate=returnDate;
+    public AdminUserBooking(String userName, String bookTitle, String issueDate, String returnDate, Double price) {
+        this.userName = userName;
+        this.bookTitle = bookTitle;
+        this.issueDate = issueDate;
+        this.returnDate = returnDate;
+        this.price = price;
     }
 
     public Long getId() {
@@ -37,6 +34,22 @@ public class BookIssue {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
     public String getIssueDate() {
@@ -55,10 +68,6 @@ public class BookIssue {
         this.returnDate = returnDate;
     }
 
-    public Book getBook() {
-        return book;
-    }
-
     public Double getPrice() {
         return price;
     }
@@ -67,7 +76,4 @@ public class BookIssue {
         this.price = price;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
-    }
 }

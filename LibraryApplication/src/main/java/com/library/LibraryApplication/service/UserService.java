@@ -6,6 +6,8 @@ import com.library.LibraryApplication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -15,8 +17,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getBookById(Long userId) {
+    public User getUserById(Long userId) {
         return userRepository.getById(userId);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     public User findUserByUserName(String userName){

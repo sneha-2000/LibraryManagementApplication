@@ -1,34 +1,30 @@
 //package com.library.LibraryApplication;
 //
-//import com.library.LibraryApplication.service.UsersUserDetailsService;
+//import com.library.LibraryApplication.service.MyUserDetailsService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.annotation.Bean;
-//import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 //import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 //import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 //
+//@EnableWebSecurity
 //public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //
 //   @Autowired
-//    private UsersUserDetailsService usersUserDetailsService;
+//    private MyUserDetailsService myUserDetailsService;
 //
 //    @Override
-//    protected AuthenticationManager authenticationManager() throws Exception {
-//        return super.authenticationManager();
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(myUserDetailsService);
+//
+//
+////    protected AuthenticationManager authenticationManager() throws Exception {
+////        return super.authenticationManager(user);
 //        //auth.userDetailsService is predefined, userDetailsService is used to retrieve user related data
 //        //userDetailsService inside the bracket is we autowired
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/admin").hasRole("admin")
-//                .antMatchers("/user").hasAnyRole("admin", "user")//hasAnyRole for multiple roles
-//                .antMatchers("/").permitAll()
-//                .and().formLogin()
-//                .defaultSuccessUrl("/home");
 //    }
 //
 //    @Bean
@@ -36,4 +32,19 @@
 //    public PasswordEncoder getPasswordEncoder(){
 //        return NoOpPasswordEncoder.getInstance();
 //    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().disable().authorizeRequests()
+//                .antMatchers("/adminHome","/addBooks","/adminBookList","/adminIssueList","/adminUserBooking",
+//                        "/adminUserDetails","adminUserList","/bookIssueDatesByAdmin").hasRole("ADMIN")
+////                .antMatchers("/user").hasAnyRole("admin", "user")//hasAnyRole for multiple roles
+//                .antMatchers("/home","/userBookDetails","/userBookingDetails","/userIssueBook/*","/userPayment",
+//                        "/successfulPayment").hasRole("USER")
+//                .antMatchers("/").permitAll()
+//                .and().formLogin().loginPage("/login")
+//                .defaultSuccessUrl("/home");
+//    }
+//
+//
 //}

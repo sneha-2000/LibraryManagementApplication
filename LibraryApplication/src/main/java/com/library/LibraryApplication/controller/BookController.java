@@ -1,11 +1,7 @@
 package com.library.LibraryApplication.controller;
 
-import com.library.LibraryApplication.entity.Book;
-import com.library.LibraryApplication.entity.BookIssue;
-import com.library.LibraryApplication.entity.User;
-import com.library.LibraryApplication.service.BookIssueService;
-import com.library.LibraryApplication.service.BookService;
-import com.library.LibraryApplication.service.UserService;
+import com.library.LibraryApplication.entity.*;
+import com.library.LibraryApplication.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +10,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class BookController {
     static Book book;
+    static Book userBook;
+    static Long issueId;
+
+    @Autowired
+    AdminService adminService;
+
     @Autowired
     BookService bookService;
 
@@ -28,6 +31,15 @@ public class BookController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    PaymentService paymentService;
+
+    @Autowired
+    UserBookingService userBookingService;
+
+    @Autowired
+    AdminUserBookingService adminUserBookingService;
+
     @RequestMapping("/userBookDetails")
     public String books(Model model) {
         model.addAttribute("books",bookService.getAllBooks());
@@ -36,9 +48,11 @@ public class BookController {
 
     @RequestMapping("/userIssueBook/{bookId}")
     public String issueBook(@PathVariable Long bookId, Model model){
-        Book book = bookService.getBookById(bookId);
-        model.addAttribute("issues",bookIssueService.getIssuedBookByBookId(book));
-        model.addAttribute("title",book.getTitle());
+         userBook = bookService.getBookById(bookId);
+        model.addAttribute("issues",bookIssueService.getIssuedBookByBookId(userBook));
+        model.addAttribute("title",userBook.getTitle());
+
+//        System.out.println(book.getBookId());
         return "userIssueBook";
     }
 
@@ -102,19 +116,73 @@ public class BookController {
 
         return "adminHome";
     }
+
+    @RequestMapping("/userPayment")
+    public String payment(HttpServletRequest request,Model model) {
+
+        issueId = Long.parseLong(request.getParameter("id"));
+        BookIssue bookIssue = bookIssueService.getIssuedBookById(issueId);
+
+//        Payment payment = new Payment(UserController.userId,issueId);
+//        paymentService.savePayment(payment);
+
+        User user = userService.getUserById(UserController.userId);
+
+        model.addAttribute("name",user.getUserName());
+        model.addAttribute("title",userBook.getTitle());
+        model.addAttribute("issueDate",bookIssue.getIssueDate());
+        model.addAttribute("returnDate",bookIssue.getReturnDate());
+        model.addAttribute("price",bookIssue.getPrice());
+
+        UserBooking userBooking = new UserBooking(user.getUserName(), userBook.getTitle(),bookIssue.getIssueDate(),bookIssue.getReturnDate(),bookIssue.getPrice());
+        userBookingService.saveUserBookings(userBooking);
+//        if (!(Objects.isNull(iss))) {
+//            model.addAttribute("message", "Book has been issued successfully!!");
+//        }
+        return "userPayment";
+    }
+
+    @RequestMapping("/successfulPayment")
+    public String successfulPayment(){
+        return "successfulPayment";
+    }
+
+    @RequestMapping("/userBookingDetails")
+    public String userBookingDetails(Model model) {
+        User user = userService.getUserById(UserController.userId);
+
+        List<UserBooking> userBooking = userBookingService.getBookingByUserName(user.getUserName());
+        model.addAttribute("bookings",userBooking);
+
+        return "userBookingDetails";
+
+    }
+
+    @RequestMapping("/adminUserList")
+    public String users(Model model) {
+        model.addAttribute("users",userService.getAllUsers());
+        return "adminUserList";
+    }
+
+    @RequestMapping("/adminUserBooking")
+    public String userBookPaymentDetails(Model model,HttpServletRequest request){
+
+        UserController.userId = Long.parseLong(request.getParameter("userId"));
+        User user = userService.getUserById(UserController.userId);
+//        System.out.println(UserController.userId);
+        List<UserBooking> userBookings = userBookingService.getBookingByUserName(user.getUserName());
 //
-//    @RequestMapping("/payment")
-//    public String payment(HttpServletRequest request,Model model) {
-//        Long issueBookId = Long.parseLong(request.getParameter("issueBookId"));
-//        IssuedBooks issuedBooks =new IssuedBooks(UserController.userId,issueBookId);
-//       issuedBooksService.saveIssuedBooks(issuedBooks);
+//        model.addAttribute("name",user.getUserName());
+//        model.addAttribute("title",userBook.getTitle());
+//        model.addAttribute("issueDate",bookIssue.getIssueDate());
+//        model.addAttribute("returnDate",bookIssue.getReturnDate());
+//        model.addAttribute("price",bookIssue.getPrice());
 //
-//       User user = userService.findUserByUserName(userId);
-//       Book book = bookService.getBookById(bookId);
-//
-//
-//
-//    }
+//        AdminUserBooking adminUserBooking = new AdminUserBooking(user.getUserName(), userBook.getTitle(),bookIssue.getIssueDate(),bookIssue.getReturnDate(),bookIssue.getPrice());
+//        adminUserBookingService.saveAdminUserBooking(adminUserBooking);
+        model.addAttribute("userBookings",userBookings);
+        return "adminUserBooking";
+    }
 
 
 }

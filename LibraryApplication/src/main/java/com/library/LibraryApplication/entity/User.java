@@ -12,8 +12,6 @@ public class User {
     private String userName;
     @Column(nullable = false)
     private String password;
-    private String role = "ROLE_USER";
-    private Boolean active = true;
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
@@ -66,14 +64,6 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -122,11 +112,4 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
 }

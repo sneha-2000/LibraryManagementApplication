@@ -1,12 +1,11 @@
 package com.library.LibraryApplication.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Admin {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true, nullable = false)
     private String adminName;
@@ -16,8 +15,7 @@ public class Admin {
     public Admin() {
     }
 
-    public Admin(Long id, String adminName, String password) {
-        this.id = id;
+    public Admin(String adminName, String password) {
         this.adminName = adminName;
         this.password = password;
     }

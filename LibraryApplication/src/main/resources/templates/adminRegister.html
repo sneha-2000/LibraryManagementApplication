@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Issue Book Details</title>
+    <title>Admin Register</title>
 
     <style>
         * {box-sizing: border-box}
@@ -35,7 +35,7 @@ hr {
 
 /* Set a style for the submit/register button */
 .registerbtn {
-  background-color: #0B6434  ;
+  background-color: #04AA6D;
   color: white;
   padding: 16px 20px;
   margin: 8px 0;
@@ -56,65 +56,34 @@ a {
 
 /* Set a grey background color and center the text of the "sign in" section */
 .signin {
-  background-color: #348D10;
+  background-color: #f1f1f1;
   text-align: center;
 }
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #36BA72 ;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: blue;
-}
-
-
 </style>
 </head>
 <body>
-<ul>
-    <li><a href="/adminHome">Home</a></li>
-    <li><a href="/adminBookList">Book List</a></li>
-    <li><a href="/">Logout</a></li>
-
-</ul>
 <div class="mt-3">
 <span class="text-center text-danger">
         <div th:text="${message}"/>
     </span>
 </div>
 <div class="container mt-5 d-flex justify-content-center">
-
+    <!--/register-->
     <div class="col-6">
-        <form action="/bookIssueDatesByAdmin" method="post">
+        <form action="/adminRegister" method="post">
             <div class="container">
-                <h1><center>Add Book Issue Details</center></h1>
+                <h1><center>Admin Registration</center></h1>
 
-                <label for="price"><b>Price</b></label>
-                <input type="text" name="price" id="price" required>
+                <label for="text"><b>Username</b></label>
+                <input type="text" placeholder="Username" name="userName" id="text" required>
 
-                <label for="issueDate"><b>Issue Date</b></label>
-                <input type="text" name="issueDate" id="issueDate" required>
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Password" name="password" id="psw" required>
 
-                <label for="returnDate"><b>Return Within</b></label>
-                <input type="text" name="returnDate" id="returnDate" required>
+                <label for="psw"><b>Confirm-Password</b></label>
+                <input type="password" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword" required>
 
-                <button type="submit" class="registerbtn">Issue Book</button>
+                <button type="submit" class="registerbtn">Register</button>
             </div>
         </form>
     </div>

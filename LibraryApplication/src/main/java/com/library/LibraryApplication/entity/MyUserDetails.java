@@ -4,25 +4,30 @@
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
 //
+//import java.util.Arrays;
 //import java.util.Collection;
 //import java.util.List;
 //
-//public class UsersUserDetails implements UserDetails {
+//public class MyUserDetails implements UserDetails {
 //    private final String username;
 //    private final String password;
 //    private final String role;
-//    private final Boolean active;
+////    private final Boolean active;
 //
-//    public UsersUserDetails(User user) {
-//        username = user.getUserName();
-//        password = user.getPassword();
-//        role = user.getRole();
-//        active = user.getActive();
+//    public MyUserDetails(String username, String password, String role) {
+//        this.username = username;
+//        this.password = password;
+//        this.role = role;
+////        username = user.getUserName();
+////        password = user.getPassword();
+////        role = user.getRole();
+////        active = user.getActive();
 //    }
 //
 //    @Override
 //    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return List.of(new SimpleGrantedAuthority(role));
+//        return Arrays.asList(new SimpleGrantedAuthority(role));
+//
 //    }
 //
 //    @Override
@@ -52,6 +57,6 @@
 //
 //    @Override
 //    public boolean isEnabled() {
-//        return active;
+//        return true;
 //    }
 //}

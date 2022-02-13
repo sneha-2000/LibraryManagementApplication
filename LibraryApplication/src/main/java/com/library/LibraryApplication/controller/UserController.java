@@ -51,6 +51,8 @@ public class UserController {
         User user = new User(userName, password, email, firstName, lastName, address, phoneNumber, city);
         userService.saveUser(user);
         return "login";
+//        return "redirect:/login";// /login
+
     }
 
     @PostMapping("/home")
@@ -60,11 +62,16 @@ public class UserController {
         if (!(Objects.isNull(user))) {
 
             if ((user.getPassword()).equals(request.getParameter("password"))) {
+                userId=user.getUserId();
+
                 return "home";
             } else {
                 model.addAttribute("message", "Invalid password!!");
                 return "login";
             }
+//        } else if (userName.equals("Admin@123")&&(request.getParameter("password").equals("admin"))) {
+//                return "adminHome";
+
         }
         else {
             Admin admin = adminService.findAdminByAdminName(userName);
@@ -85,6 +92,28 @@ public class UserController {
     @RequestMapping("/home")
     public String home () {
         return "home";
+    }
+
+    @RequestMapping("/adminRegister")
+    public String adminRegister(){
+        return "/adminRegister";
+    }
+
+    @PostMapping("/adminRegister")
+    public String adminRegistration(HttpServletRequest request, Model model) {
+
+        if (!(request.getParameter("password").equals(request.getParameter("confirmPassword")))) {
+            model.addAttribute("message", "Password and confirm-password doesn't match!!");
+            return "adminRegister";
+        }
+        String userName = request.getParameter("userName");
+        String password = request.getParameter("password");
+
+        Admin admin = new Admin(userName, password);
+        adminService.saveAdmin(admin);
+
+        return "login";
+
     }
 
     @RequestMapping("/adminHome")
