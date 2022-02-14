@@ -43,7 +43,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/successfulPayment").hasRole("USER")
                 .antMatchers("/").permitAll()
                 .and().formLogin().loginPage("/login")
-                .defaultSuccessUrl("/success");
+                .defaultSuccessUrl("/success")
+                .and().logout().logoutSuccessUrl("/");
 //    }
 
 //        http.csrf().disable().authorizeRequests()
