@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="ISO-8859-1">
     <title>Error</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/CSS/account-layout.css}">
 </head>
+<style>
+    body {
+  background-color: #328f8a;
+  background-image: linear-gradient(45deg,#DAF7A6,#08ac4b);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+</style>
 <body>
 
-<div class="container">
-    <h3>Oops, something went wrong!</h3>
+<div class="container" style="text-align:center">
+    <h1>Oops, something went wrong!</h1>
 
-    <p>Please try again.</p>
+    <h2 style="color:white">Please try again.</h2>
 
-    <small>(Internal server error 500)</small>
+    <p style="color:blue">(Internal server error 500)</p>
 </div>
 
 

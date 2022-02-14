@@ -55,7 +55,7 @@ public class BookController {
     }
 
     @RequestMapping("/addBooks")
-    public String addBooks(){
+    public String addBooks() {
         return "addBooks";
     }
 

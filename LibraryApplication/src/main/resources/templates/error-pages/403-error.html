@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="ISO-8859-1">
     <title>Error</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/CSS/account-layout.css}">
+
 </head>
+<style>
+    body {
+  background-color: #328f8a;
+  background-image: linear-gradient(45deg,#DAF7A6,#08ac4b);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+</style>
 <body>
 
-<div class="container">
-    <h3>Oops, something went wrong!</h3>
+<div class="container" style="text-align:center">
+    <h1>Oops, something went wrong!</h1>
 
-    <p>You don't have the authority to visit this page, please try another one.</p>
+    <h2 style="color:white">You don't have the authority to visit this page, please try another one.</h2>
 
-    <small>(Forbidden page error 403)</small>
+    <p style="color:blue">(Forbidden page error 403)</p>
 </div>
 
 </body>
