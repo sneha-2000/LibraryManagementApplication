@@ -15,7 +15,7 @@ public class AdminService {
         return adminRepository.save(admin);
     }
 
-    public Admin findAdminByAdminName(String adminName) {
-        return adminRepository.findAdminByAdminName(adminName);
+    public Admin findAdminByUsername(String username) {
+        return adminRepository.findAdminByUsername(username);
     }
 }

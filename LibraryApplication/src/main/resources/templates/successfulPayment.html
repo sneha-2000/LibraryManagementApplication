@@ -4,40 +4,72 @@
     <meta charset="UTF-8">
     <title>Successful Payment</title>
     <style>
-    ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color:#348D10 ;
-    }
+   /* Set a style for the submit/register button */
+.bookbtn {
+  background-color: #348D10;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 60%;
+  opacity: 0.9;
+}
 
-    li {
-    float: left;
-    }
+.bookbtn:hover {
+  opacity:1;
+}
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #348D10;
+}
 
-    li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    }
+li {
+  float: left;
+}
 
-    li a:hover {
-    background-color: blue;
-    }
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color:blue;
+}
+
+       body {
+  background-image: url('library4.jpg');
+  /* The image used */
+
+  min-height: 100px;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height:100%;
+
+  color:blue;
+
+  /* Needed to position the navbar */
+  position: relative;
+}
     </style>
 </head>
 <body>
 <ul>
     <li><a href="/home">Home</a></li>
     <li><a href="/userBookingDetails">My Bookings</a></li>
-    <li><a href="/">Logout</a></li>
+    <li><a href="/logout">Logout</a></li>
 
 </ul>
-    <div style="text-align:center">
-    <h1>Your book has been issued successfully!!<br><br>
+    <div style="text-align:center"><br><br>
+    <h1 style="color:white">Your book has been issued successfully!!<br><br>
         Thank you for being part of our services!
     </h1>
     </div>

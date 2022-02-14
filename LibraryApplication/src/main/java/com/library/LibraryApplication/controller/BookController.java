@@ -5,6 +5,7 @@ import com.library.LibraryApplication.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +37,6 @@ public class BookController {
 
     @Autowired
     UserBookingService userBookingService;
-
-    @Autowired
-    AdminUserBookingService adminUserBookingService;
 
     @RequestMapping("/userBookDetails")
     public String books(Model model) {
@@ -84,7 +82,7 @@ public class BookController {
         return "adminBookList";
     }
 
-    @RequestMapping("/deleteBook")
+    @PostMapping("/deleteBook")
     public String deleteRoom(HttpServletRequest request,Model model){
         Book book= bookService.getBookById(Long.parseLong(request.getParameter("bookId")));
         bookService.deleteBook(Long.parseLong(request.getParameter("bookId")));
@@ -117,28 +115,23 @@ public class BookController {
         return "adminHome";
     }
 
-    @RequestMapping("/userPayment")
+    @PostMapping("/userPayment")
     public String payment(HttpServletRequest request,Model model) {
 
         issueId = Long.parseLong(request.getParameter("id"));
         BookIssue bookIssue = bookIssueService.getIssuedBookById(issueId);
 
-//        Payment payment = new Payment(UserController.userId,issueId);
-//        paymentService.savePayment(payment);
-
         User user = userService.getUserById(UserController.userId);
 
-        model.addAttribute("name",user.getUserName());
+        model.addAttribute("name",user.getUsername());
         model.addAttribute("title",userBook.getTitle());
         model.addAttribute("issueDate",bookIssue.getIssueDate());
         model.addAttribute("returnDate",bookIssue.getReturnDate());
         model.addAttribute("price",bookIssue.getPrice());
 
-        UserBooking userBooking = new UserBooking(user.getUserName(), userBook.getTitle(),bookIssue.getIssueDate(),bookIssue.getReturnDate(),bookIssue.getPrice());
+        UserBooking userBooking = new UserBooking(user.getUsername(), userBook.getTitle(),bookIssue.getIssueDate(),bookIssue.getReturnDate(),bookIssue.getPrice());
         userBookingService.saveUserBookings(userBooking);
-//        if (!(Objects.isNull(iss))) {
-//            model.addAttribute("message", "Book has been issued successfully!!");
-//        }
+
         return "userPayment";
     }
 
@@ -147,15 +140,25 @@ public class BookController {
         return "successfulPayment";
     }
 
-    @RequestMapping("/userBookingDetails")
+    @PostMapping("/userBookingDetails")
     public String userBookingDetails(Model model) {
         User user = userService.getUserById(UserController.userId);
 
-        List<UserBooking> userBooking = userBookingService.getBookingByUserName(user.getUserName());
+        List<UserBooking> userBooking = userBookingService.getBookingByUsername(user.getUsername());
         model.addAttribute("bookings",userBooking);
 
         return "userBookingDetails";
 
+    }
+
+    @RequestMapping("/userBookingDetails")
+    public String booking(Model model){
+        User user = userService.getUserById(UserController.userId);
+
+        List<UserBooking> userBooking = userBookingService.getBookingByUsername(user.getUsername());
+        model.addAttribute("bookings",userBooking);
+
+        return "userBookingDetails";
     }
 
     @RequestMapping("/adminUserList")
@@ -169,17 +172,8 @@ public class BookController {
 
         UserController.userId = Long.parseLong(request.getParameter("userId"));
         User user = userService.getUserById(UserController.userId);
-//        System.out.println(UserController.userId);
-        List<UserBooking> userBookings = userBookingService.getBookingByUserName(user.getUserName());
-//
-//        model.addAttribute("name",user.getUserName());
-//        model.addAttribute("title",userBook.getTitle());
-//        model.addAttribute("issueDate",bookIssue.getIssueDate());
-//        model.addAttribute("returnDate",bookIssue.getReturnDate());
-//        model.addAttribute("price",bookIssue.getPrice());
-//
-//        AdminUserBooking adminUserBooking = new AdminUserBooking(user.getUserName(), userBook.getTitle(),bookIssue.getIssueDate(),bookIssue.getReturnDate(),bookIssue.getPrice());
-//        adminUserBookingService.saveAdminUserBooking(adminUserBooking);
+
+        List<UserBooking> userBookings = userBookingService.getBookingByUsername(user.getUsername());
         model.addAttribute("userBookings",userBookings);
         return "adminUserBooking";
     }

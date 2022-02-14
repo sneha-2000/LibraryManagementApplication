@@ -8,8 +8,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
 
-    @Column(name="username",nullable = false,unique = true)
-    private String userName;
+    @Column(nullable = false,unique = true)
+    private String username;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
@@ -27,10 +27,10 @@ public class User {
 
     public User() {}
 
-    public User(String userName, String password, String email, String firstName,
+    public User(String username, String password, String email, String firstName,
                 String lastName, String address, String phoneNumber, String city) {
 
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -48,12 +48,12 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

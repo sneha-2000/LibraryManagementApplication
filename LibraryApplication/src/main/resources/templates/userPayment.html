@@ -7,6 +7,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <style>
 
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
 /* Set a style for the submit/register button */
 .bookbtn {
   background-color: #348D10;
@@ -27,7 +37,7 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: #348D10;
 }
 
 li {
@@ -43,7 +53,7 @@ li a {
 }
 
 li a:hover {
-  background-color: #111;
+  background-color: white;
 }
 
  .container {
@@ -53,13 +63,27 @@ li a:hover {
         background-color: white;
 
     }
+    body {
+  background-image: url('library1.jpg');
+  /* The image used */
+
+  min-height: 100px;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height:100%;
+
+  /* Needed to position the navbar */
+  position: relative;
+}
   </style>
 </head>
 <body style="text-align:center" background="ticket.png">
 <ul>
     <li><a href="/home">Home</a></li>
     <li><a href="/userBookingDetails">My Bookings</a></li>
-    <li><a href="/login">Logout</a></li>
+    <li><a href="/logout">Logout</a></li>
 
 </ul>
 <div style="text-align:center">

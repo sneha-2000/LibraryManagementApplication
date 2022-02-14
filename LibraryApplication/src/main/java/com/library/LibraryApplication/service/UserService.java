@@ -25,7 +25,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findUserByUserName(String userName){
-        return userRepository.findByUserName(userName);
+    public User findUserByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 }

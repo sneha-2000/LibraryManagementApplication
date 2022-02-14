@@ -16,7 +16,7 @@ public class UserBookingService {
     public void saveUserBookings(UserBooking userBooking) {
         userBookingRepository.save(userBooking);
     }
-    public List<UserBooking> getBookingByUserName(String userName) {
-        return userBookingRepository.findUserBookingByUserId(userName);
+    public List<UserBooking> getBookingByUsername(String username) {
+        return userBookingRepository.findUserBookingByUsername(username);
     }
 }

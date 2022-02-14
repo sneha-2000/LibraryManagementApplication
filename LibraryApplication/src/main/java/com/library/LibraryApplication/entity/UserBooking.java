@@ -8,7 +8,7 @@ public class UserBooking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
-    private String userName;
+    private String username;
     @Column(nullable = false)
     private String bookTitle;
     @Column(nullable = false)
@@ -21,8 +21,8 @@ public class UserBooking {
     public UserBooking() {
     }
 
-    public UserBooking(String userName, String bookTitle, String issueDate, String returnDate, Double price) {
-        this.userName = userName;
+    public UserBooking(String username, String bookTitle, String issueDate, String returnDate, Double price) {
+        this.username = username;
         this.bookTitle = bookTitle;
         this.issueDate = issueDate;
         this.returnDate = returnDate;
@@ -37,12 +37,12 @@ public class UserBooking {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getBookTitle() {

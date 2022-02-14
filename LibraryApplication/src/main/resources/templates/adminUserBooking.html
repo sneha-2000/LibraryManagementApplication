@@ -38,7 +38,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color:#348D10 ;
+  background-color:#36BA72 ;
 }
 
 li {
@@ -61,7 +61,7 @@ li a:hover {
 <body>
 <ul>
     <li><a href="/adminHome">Home</a></li>
-    <li><a href="/">Logout</a></li>
+    <li><a href="/logout">Logout</a></li>
 
 </ul>
 <div class="container">
@@ -77,7 +77,7 @@ li a:hover {
         </thead>
         <tbody>
         <tr th:each="userBooking:${userBookings}">
-            <td th:text="${userBooking.userName}"></td>
+            <td th:text="${userBooking.username}"></td>
             <td th:text="${userBooking.bookTitle}"></td>
             <td th:text="${userBooking.issueDate}"></td>
             <td th:text="${userBooking.returnDate}"></td>

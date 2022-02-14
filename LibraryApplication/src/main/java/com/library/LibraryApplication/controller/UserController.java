@@ -7,16 +7,18 @@ import com.library.LibraryApplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Objects;
 
 @Controller
 public class UserController {
     public static Long userId;
-    static String userName;
+    static String username;
     @Autowired
     AdminService adminService;
 
@@ -33,32 +35,51 @@ public class UserController {
         return "register";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/register")
     public String userRegistration(HttpServletRequest request, Model model) {
         if (!(request.getParameter("password").equals(request.getParameter("confirmPassword")))) {
             model.addAttribute("message", "Password and confirm-password doesn't match!!");
             return "register";
         }
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String address = request.getParameter("address");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String city = request.getParameter("city");
+        else{
+            if(!(((request.getParameter("phoneNumber")).length())==10)){
+                model.addAttribute("message", "INVALID PHONE NUMBER!!!");
+                return "register";
+            }
+            else{
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                String email = request.getParameter("email");
+                String firstName = request.getParameter("firstName");
+                String lastName = request.getParameter("lastName");
+                String address = request.getParameter("address");
+                String phoneNumber = request.getParameter("phoneNumber");
+                String city = request.getParameter("city");
 
-        User user = new User(userName, password, email, firstName, lastName, address, phoneNumber, city);
-        userService.saveUser(user);
-        return "login";
+                User user = new User(username, password, email, firstName, lastName, address, phoneNumber, city);
+                userService.saveUser(user);
+                return "login";
+            }
+        }
+
 //        return "redirect:/login";// /login
 
+    }
+    @GetMapping("/success")
+    public String login(Principal principal){
+        String username= principal.getName();
+        if (username.equals("Admin@111")){
+            return "redirect:/adminHome";
+        }
+        User user = userService.findUserByUsername(username);
+        userId = user.getUserId();
+        return "redirect:/home";
     }
 
     @PostMapping("/home")
     public String validateUser(HttpServletRequest request, Model model) {
-        User user = userService.findUserByUserName(request.getParameter("userName"));
-        userName = request.getParameter("userName");
+        User user = userService.findUserByUsername(request.getParameter("username"));
+        username = request.getParameter("username");
         if (!(Objects.isNull(user))) {
 
             if ((user.getPassword()).equals(request.getParameter("password"))) {
@@ -74,7 +95,7 @@ public class UserController {
 
         }
         else {
-            Admin admin = adminService.findAdminByAdminName(userName);
+            Admin admin = adminService.findAdminByUsername(username);
             if (!(Objects.isNull(admin))) {
                 if (admin.getPassword().equals(request.getParameter("password"))) {
                     return "adminHome";
@@ -99,17 +120,17 @@ public class UserController {
         return "/adminRegister";
     }
 
-    @PostMapping("/adminRegister")
+    @PostMapping("/adminLogin")
     public String adminRegistration(HttpServletRequest request, Model model) {
 
         if (!(request.getParameter("password").equals(request.getParameter("confirmPassword")))) {
             model.addAttribute("message", "Password and confirm-password doesn't match!!");
             return "adminRegister";
         }
-        String userName = request.getParameter("userName");
+        String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        Admin admin = new Admin(userName, password);
+        Admin admin = new Admin(username, password);
         adminService.saveAdmin(admin);
 
         return "login";

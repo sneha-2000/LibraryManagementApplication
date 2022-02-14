@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface UserBookingRepository extends JpaRepository<UserBooking,Long> {
-    @Query("Select userBooking from UserBooking userBooking where userBooking.userName=:userName")
-    List<UserBooking> findUserBookingByUserId(String userName);
+    @Query("Select userBooking from UserBooking userBooking where userBooking.username=:username")
+    List<UserBooking> findUserBookingByUsername(String username);
 }

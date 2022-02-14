@@ -85,13 +85,27 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+body {
+  background-image: url('libraryImage.jpg');
+  /* The image used */
+
+  min-height: 100px;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height:100%;
+
+  /* Needed to position the navbar */
+  position: relative;
+}
     </style>
 </head>
 <body>
 <!--<h1 style="text-align:center">Lets get started with our library services!!</h1>-->
 <!--<h2 style="text-align:center">Please login to explore our services!</h2>-->
 <div class="login-page">
-
+    <h1 style="color:white">LIBRARY SERVICES!!</h1>
     <div class="form">
         <div class="login">
             <div class="login-header">
@@ -100,12 +114,12 @@ body {
             </div>
             <div th:text="${message}" style="color:red"/>
         </div>
-        <form class="login-form" action="/home" method="post">
-            <input type="text" placeholder="username" name="userName"/>
+        <form class="login-form" action="/login" method="post">
+            <input type="text" placeholder="username" name="username"/>
             <input type="password" placeholder="password" name="password"/>
             <button>login</button>
-            <p class="message">Not registered? <a href="register">Create an account</a></p>
-            <p class="message">Admin register here! <a href="adminRegister">Create an account</a></p>
+            <p class="message">Not registered? <a href="/register">Create an account</a></p>
+            <p class="message">Admin register here! <a href="/adminRegister">Create an account</a></p>
         </form>
     </div>
 </div>
