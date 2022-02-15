@@ -25,15 +25,32 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    /**
+     * Index page set as login.
+     * @return
+     */
+
     @RequestMapping("/")
     public String index() {
         return "login";
     }
 
+    /**
+     * registering of user.
+     * @return
+     */
+
     @RequestMapping("/register")
     public String register() {
         return "register";
     }
+
+    /**
+     *
+     * @param request user inputs for registration.
+     * @param model if input validations violated.
+     * @return
+     */
 
     @PostMapping("/register")
     public String userRegistration(HttpServletRequest request, Model model) {
@@ -62,9 +79,14 @@ public class UserController {
             }
         }
 
-//        return "redirect:/login";// /login
-
     }
+
+    /**
+     * To check whether it is a user page or admin page after login.
+     * @param principal get username or admin username.
+     * @return
+     */
+
     @GetMapping("/success")
     public String login(Principal principal){
         String username= principal.getName();
@@ -90,8 +112,6 @@ public class UserController {
                 model.addAttribute("message", "Invalid password!!");
                 return "login";
             }
-//        } else if (userName.equals("Admin@123")&&(request.getParameter("password").equals("admin"))) {
-//                return "adminHome";
 
         }
         else {
@@ -119,6 +139,13 @@ public class UserController {
     public String adminRegister(){
         return "/adminRegister";
     }
+
+    /**
+     * admin registration.
+     * @param request username, password and confirm password from admin.
+     * @param model error message.
+     * @return
+     */
 
     @PostMapping("/adminLogin")
     public String adminRegistration(HttpServletRequest request, Model model) {

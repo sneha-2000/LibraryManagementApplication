@@ -21,9 +21,6 @@ public class BookController {
     static Long issueId;
 
     @Autowired
-    AdminService adminService;
-
-    @Autowired
     BookService bookService;
 
     @Autowired
@@ -33,26 +30,11 @@ public class BookController {
     UserService userService;
 
     @Autowired
-    PaymentService paymentService;
-
-    @Autowired
     UserBookingService userBookingService;
 
-    @RequestMapping("/userBookDetails")
-    public String books(Model model) {
-        model.addAttribute("books",bookService.getAllBooks());
-        return "userBookDetails";
-    }
-
-    @RequestMapping("/userIssueBook/{bookId}")
-    public String issueBook(@PathVariable Long bookId, Model model){
-         userBook = bookService.getBookById(bookId);
-        model.addAttribute("issues",bookIssueService.getIssuedBookByBookId(userBook));
-        model.addAttribute("title",userBook.getTitle());
-
-//        System.out.println(book.getBookId());
-        return "userIssueBook";
-    }
+    /**
+     * Admin can add books.
+     */
 
     @RequestMapping("/addBooks")
     public String addBooks() {
@@ -72,7 +54,7 @@ public class BookController {
 
     /**
      * Admin can view the book list after adding it.
-     * @param model
+     * @param model listing of all books.
      * @return
      */
 
@@ -82,6 +64,13 @@ public class BookController {
         return "adminBookList";
     }
 
+    /**
+     * Admin can delete a book.
+     * @param request book id requesting.
+     * @param model listing books after deleting.
+     * @return
+     */
+
     @PostMapping("/deleteBook")
     public String deleteRoom(HttpServletRequest request,Model model){
         Book book= bookService.getBookById(Long.parseLong(request.getParameter("bookId")));
@@ -90,17 +79,36 @@ public class BookController {
         return "adminBookList";
     }
 
+    /**
+     * Listing of books to issue it by admin.
+     * @param model listing of books.
+     * @return
+     */
+
     @RequestMapping("/adminIssueList")
     public  String issueList(Model model) {
         model.addAttribute("lists",bookService.getAllBooks());
         return "adminIssueList";
     }
 
+    /**
+     * Issuing books using book id.
+     * @param request book id requesting.
+     * @return
+     */
+
     @RequestMapping("/adminIssuesBook")
     public String bookIssueByDates(HttpServletRequest request){
-         book = bookService.getBookById(Long.parseLong(request.getParameter("bookId")));
-    return "bookIssueDatesByAdmin";
-}
+        book = bookService.getBookById(Long.parseLong(request.getParameter("bookId")));
+        return "bookIssueDatesByAdmin";
+    }
+
+    /**
+     * Adding issue dates and return dates by admin for providing it to user.
+     * @param request issue date, return date, price requesting.
+     * @param model
+     * @return
+     */
 
     @PostMapping("/bookIssueDatesByAdmin")
     public String issueBooks(HttpServletRequest request, Model model) {
@@ -114,6 +122,70 @@ public class BookController {
 
         return "adminHome";
     }
+
+    /**
+     * Listing of user details on admin side.
+     * @param model user list.
+     * @return
+     */
+
+    @RequestMapping("/adminUserList")
+    public String users(Model model) {
+        model.addAttribute("users",userService.getAllUsers());
+        return "adminUserList";
+    }
+
+    /**
+     * Previous bookings of user on admin side.
+     * @param model history of bookings on admin side.
+     * @param request user id
+     * @return
+     */
+
+    @RequestMapping("/adminUserBooking")
+    public String userBookPaymentDetails(Model model,HttpServletRequest request){
+
+        UserController.userId = Long.parseLong(request.getParameter("userId"));
+        User user = userService.getUserById(UserController.userId);
+
+        List<UserBooking> userBookings = userBookingService.getBookingByUsername(user.getUsername());
+        model.addAttribute("userBookings",userBookings);
+        return "adminUserBooking";
+    }
+
+    /**
+     * Listing of all books that are available on user side.
+     * @param model book list.
+     * @return
+     */
+
+    @RequestMapping("/userBookDetails")
+    public String books(Model model) {
+        model.addAttribute("books",bookService.getAllBooks());
+        return "userBookDetails";
+    }
+
+    /**
+     * User issuing book options.
+     * @param bookId for issuing book.
+     * @param model title and other details of issuing.
+     * @return
+     */
+
+    @RequestMapping("/userIssueBook/{bookId}")
+    public String issueBook(@PathVariable Long bookId, Model model){
+         userBook = bookService.getBookById(bookId);
+        model.addAttribute("issues",bookIssueService.getIssuedBookByBookId(userBook));
+        model.addAttribute("title",userBook.getTitle());
+        return "userIssueBook";
+    }
+
+    /**
+     * User payment bill with details.
+     * @param request user id
+     * @param model book and user details.
+     * @return
+     */
 
     @PostMapping("/userPayment")
     public String payment(HttpServletRequest request,Model model) {
@@ -135,10 +207,21 @@ public class BookController {
         return "userPayment";
     }
 
+    /**
+     * Successful payment page.
+     * @return
+     */
+
     @RequestMapping("/successfulPayment")
     public String successfulPayment(){
         return "successfulPayment";
     }
+
+    /**
+     * User history of bookings are listed here.
+     * @param model history bookings.
+     * @return
+     */
 
     @PostMapping("/userBookingDetails")
     public String userBookingDetails(Model model) {
@@ -160,23 +243,5 @@ public class BookController {
 
         return "userBookingDetails";
     }
-
-    @RequestMapping("/adminUserList")
-    public String users(Model model) {
-        model.addAttribute("users",userService.getAllUsers());
-        return "adminUserList";
-    }
-
-    @RequestMapping("/adminUserBooking")
-    public String userBookPaymentDetails(Model model,HttpServletRequest request){
-
-        UserController.userId = Long.parseLong(request.getParameter("userId"));
-        User user = userService.getUserById(UserController.userId);
-
-        List<UserBooking> userBookings = userBookingService.getBookingByUsername(user.getUsername());
-        model.addAttribute("userBookings",userBookings);
-        return "adminUserBooking";
-    }
-
 
 }
